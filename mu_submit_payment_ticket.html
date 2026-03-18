@@ -576,7 +576,9 @@
                 ? "تم تحديث طلبك الحالي بنجاح."
                 : "تم إنشاء طلبك بنجاح.";
 
-            const ticketText = result.ticket_id ? ` رقم التذكرة: ${result.ticket_id}` : "";
+            const ticketText = result.ticket_ref
+            ? ` رقم التذكرة: ${result.ticket_ref}`
+            : (result.ticket_id ? ` رقم التذكرة: ${result.ticket_id}` : "");
             showSuccess(`${actionText}${ticketText}${result.message ? " - " + result.message : ""}`);
 
             form.reset();
