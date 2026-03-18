@@ -195,7 +195,12 @@
       <div class="top-note">جامعة المغتربين – كلية الهندسة – مركز الرياض</div>
     </div>
 
-    <form id="mu-payment-form">
+    <form 
+        id="mu-payment-form"
+        action="https://esi-sa.app.n8n.cloud/webhook/submit_payment_ticket"
+        method="POST"
+        enctype="multipart/form-data"
+      >
       <div class="mu-card">
         <h3>بيانات الطالب</h3>
         <div class="mu-grid">
@@ -303,6 +308,7 @@
       <div class="mu-card">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
           <button type="submit" class="mu-btn" id="mu-submit-btn">إرسال الطلب</button>
+          <input type="hidden" name="source" value="github_pages">
           <a href="https://esi.oeducat.org/st-lm-n-hl-ltlb" class="mu-btn" style="text-decoration:none;text-align:center;display:inline-block;background:#374151;">
             استعلام عن طلب
           </a>
@@ -544,10 +550,7 @@
           formData.append("notes", notes);
           formData.append("payment_receipt", receiptFile);
 
-          const response = await fetch(SUBMIT_URL, {
-            method: "POST",
-            body: formData
-          });
+          
 
           let result = {};
           try {
