@@ -197,7 +197,7 @@
 
     <form
       id="mu-payment-form"
-      action="http://185.199.53.28:5678/webhook/submit_payment_ticket"
+      action="https://zonoon-automation.duckdns.org/webhook/submit_payment_ticket"
       method="POST"
       enctype="multipart/form-data"
     >
@@ -326,9 +326,9 @@
 
   <script>
     (function () {
-      const SPECIALIZATIONS_URL = "https://esi-sa.app.n8n.cloud/webhook/mu-get-specializations";
-      const COURSES_URL = "https://esi-sa.app.n8n.cloud/webhook/mu-get-courses";
-      const SUBMIT_URL = "https://esi-sa.app.n8n.cloud/webhook/submit_payment_ticket";
+      const SPECIALIZATIONS_URL = "https://zonoon-automation.duckdns.org/webhook/mu-get-specializations";
+      const COURSES_URL = "https://zonoon-automation.duckdns.org/webhook/mu-get-courses";
+      const SUBMIT_URL = "https://zonoon-automation.duckdns.org/webhook/mu-ticket-status";
 
       const form = document.getElementById("mu-payment-form");
       const specializationSelect = document.getElementById("mu-specialization");
