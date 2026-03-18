@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>طلب سداد المعامل العملية</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f6f7fb;
+      font-family: Tahoma, Arial, sans-serif;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 32px auto;
+      padding: 0 16px;
+    }
+    .mu-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    h1 {
+      margin: 0 0 18px;
+      font-size: 28px;
+      color: #1f2937;
+      text-align: center;
+    }
+    h3 {
+      margin: 0 0 14px;
+      font-size: 24px;
+      color: #1f2937;
+    }
+    h4 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      color: #374151;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #374151;
+    }
+    select,
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 14px;
+      background: #fff;
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    .mu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .mu-courses {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .mu-course-item {
+      border: 1px solid #dbe3ea;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fafafa;
+    }
+    .mu-course-item label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-weight: 500;
+      margin: 0;
+      cursor: pointer;
+    }
+    .mu-course-item small {
+      display: block;
+      color: #6b7280;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+    .mu-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .mu-box {
+      background: #f8fafc;
+      border: 1px solid #dbe3ea;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+    .mu-box .value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 6px;
+    }
+    .mu-note {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #9a3412;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 12px;
+    }
+    .mu-success {
+      background: #ecfdf5;
+      border: 1px solid #10b981;
+      color: #065f46;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 12px;
+      display: none;
+      white-space: pre-line;
+    }
+    .mu-error {
+      background: #fef2f2;
+      border: 1px solid #ef4444;
+      color: #991b1b;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 12px;
+      display: none;
+      white-space: pre-line;
+    }
+    .mu-loading {
+      color: #6b7280;
+      margin-top: 8px;
+    }
+    .mu-btn {
+      background: #7c3aed;
+      color: #fff;
+      border: 0;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+    }
+    .mu-btn:hover { opacity: 0.95; }
+    .mu-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .mu-muted {
+      color: #6b7280;
+      font-size: 13px;
+      margin-top: -8px;
+      margin-bottom: 14px;
+    }
+    .required-star { color: #dc2626; }
+    .top-note {
+      text-align: center;
+      margin-bottom: 18px;
+      color: #4b5563;
+    }
+    .footer-note {
+      text-align: center;
+      color: #6b7280;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      .mu-grid, .mu-courses, .mu-summary {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="mu-card">
+      <h1>طلب سداد المعامل العملية</h1>
+      <div class="top-note">جامعة المغتربين – كلية الهندسة – مركز الرياض</div>
+    </div>
+
+    <form id="mu-payment-form">
+      <div class="mu-card">
+        <h3>بيانات الطالب</h3>
+        <div class="mu-grid">
+          <div>
+            <label for="mu-full-name">الاسم الكامل <span class="required-star">*</span></label>
+            <input type="text" id="mu-full-name" name="full_name" placeholder="اكتب الاسم الرباعي" required>
+          </div>
+
+          <div>
+            <label for="mu-student-id">الرقم الجامعي <span class="required-star">*</span></label>
+            <input type="text" id="mu-student-id" name="student_id" placeholder="اكتب الرقم الجامعي" required>
+          </div>
+
+          <div>
+            <label for="mu-phone">رقم الهاتف <span class="required-star">*</span></label>
+            <input type="tel" id="mu-phone" name="phone" placeholder="05xxxxxxxx" required>
+          </div>
+
+          <div>
+            <label for="mu-email">عنوان البريد الإلكتروني <span class="required-star">*</span></label>
+            <input type="email" id="mu-email" name="email" placeholder="example@email.com" required>
+          </div>
+
+          <div>
+            <label for="mu-semester">المستوى <span class="required-star">*</span></label>
+            <select id="mu-semester" name="semester" required>
+              <option value="">اختر المستوى</option>
+              <option value="1">الأول</option>
+              <option value="2">الثاني</option>
+              <option value="3">الثالث</option>
+              <option value="4">الرابع</option>
+              <option value="5">الخامس</option>
+              <option value="6">السادس</option>
+              <option value="7">السابع</option>
+              <option value="8">الثامن</option>
+              <option value="9">التاسع</option>
+              <option value="10">العاشر</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="mu-specialization">التخصص <span class="required-star">*</span></label>
+            <select id="mu-specialization" name="specialization" required>
+              <option value="">جاري تحميل التخصصات...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mu-note">
+          بعد اختيار التخصص ستظهر لك المعامل/المقررات الخاصة به فقط. يمكنك اختيار أكثر من مقرر وسيتم حساب الإجمالي تلقائيًا.
+        </div>
+      </div>
+
+      <div class="mu-card">
+        <h4>المعامل / المقررات المتاحة</h4>
+        <div id="mu-courses-loading" class="mu-loading">اختر التخصص أولًا لعرض المقررات.</div>
+        <div id="mu-courses" class="mu-courses"></div>
+      </div>
+
+      <div class="mu-card">
+        <h4>ملخص الرسوم المطلوبة</h4>
+        <div class="mu-summary">
+          <div class="mu-box">
+            <div>عدد المقررات المختارة</div>
+            <div class="value" id="mu-count">0</div>
+          </div>
+          <div class="mu-box">
+            <div>الإجمالي بالدولار</div>
+            <div class="value" id="mu-total-usd">0</div>
+          </div>
+          <div class="mu-box">
+            <div>الإجمالي بالريال</div>
+            <div class="value" id="mu-total-sar">0</div>
+          </div>
+        </div>
+
+        <div class="mu-grid" style="margin-top:14px;">
+          <div>
+            <label for="mu-course-count">عدد المقررات</label>
+            <input type="number" id="mu-course-count" name="course_count" readonly>
+          </div>
+          <div>
+            <label for="mu-total-sar-input">إجمالي المطلوب تحويله بالريال</label>
+            <input type="text" id="mu-total-sar-input" name="total_sar" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="mu-card">
+        <h4>إثبات السداد</h4>
+        <div class="mu-grid">
+          <div>
+            <label for="mu-receipt">رفع إيصال السداد <span class="required-star">*</span></label>
+            <input type="file" id="mu-receipt" name="payment_receipt" accept=".jpg,.jpeg,.png,.pdf" required>
+            <div class="mu-muted">الملفات المسموحة: JPG, PNG, PDF</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="mu-notes">ملاحظات إضافية</label>
+          <textarea id="mu-notes" name="notes" placeholder="أي ملاحظات إضافية تخص الطلب"></textarea>
+        </div>
+      </div>
+
+      <div class="mu-card">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <button type="submit" class="mu-btn" id="mu-submit-btn">إرسال الطلب</button>
+          <a href="https://esi.oeducat.org/st-lm-n-hl-ltlb" class="mu-btn" style="text-decoration:none;text-align:center;display:inline-block;background:#374151;">
+            استعلام عن طلب
+          </a>
+        </div>
+
+        <div id="mu-success-box" class="mu-success"></div>
+        <div id="mu-error-box" class="mu-error"></div>
+      </div>
+    </form>
+
+    <div class="footer-note">
+      لن يتم اعتماد الطلب إلا بعد مراجعة إثبات السداد والتحقق من البيانات.
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const SPECIALIZATIONS_URL = "https://esi-sa.app.n8n.cloud/webhook/mu-get-specializations";
+      const COURSES_URL = "https://esi-sa.app.n8n.cloud/webhook/mu-get-courses";
+      const SUBMIT_URL = "https://esi-sa.app.n8n.cloud/webhook/submit_payment_ticket";
+
+      const form = document.getElementById("mu-payment-form");
+      const specializationSelect = document.getElementById("mu-specialization");
+      const semesterSelect = document.getElementById("mu-semester");
+      const coursesContainer = document.getElementById("mu-courses");
+      const coursesLoading = document.getElementById("mu-courses-loading");
+      const countEl = document.getElementById("mu-count");
+      const totalUsdEl = document.getElementById("mu-total-usd");
+      const totalSarEl = document.getElementById("mu-total-sar");
+      const courseCountInput = document.getElementById("mu-course-count");
+      const totalSarInput = document.getElementById("mu-total-sar-input");
+      const successBox = document.getElementById("mu-success-box");
+      const errorBox = document.getElementById("mu-error-box");
+      const submitBtn = document.getElementById("mu-submit-btn");
+
+      let loadedCourses = [];
+
+      async function loadSpecializations() {
+        try {
+          const response = await fetch(SPECIALIZATIONS_URL, { method: "GET" });
+          const data = await response.json();
+
+          specializationSelect.innerHTML = '<option value="">اختر التخصص</option>';
+
+          data.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item.specialization_code || item.code || "";
+            option.textContent = item.specialization_name || item.name || item.specialization_code || "";
+            specializationSelect.appendChild(option);
+          });
+        } catch (error) {
+          specializationSelect.innerHTML = '<option value="">تعذر تحميل التخصصات</option>';
+          console.error("Error loading specializations:", error);
+        }
+      }
+
+      async function loadCourses(specCode) {
+        coursesContainer.innerHTML = "";
+        loadedCourses = [];
+        updateSummary();
+
+        if (!specCode) {
+          coursesLoading.textContent = "اختر التخصص أولًا لعرض المقررات.";
+          return;
+        }
+
+        coursesLoading.textContent = "جاري تحميل المقررات...";
+
+        try {
+          const response = await fetch(COURSES_URL + "?spec=" + encodeURIComponent(specCode), { method: "GET" });
+          const data = await response.json();
+          loadedCourses = Array.isArray(data) ? data : [];
+
+          if (!loadedCourses.length) {
+            coursesLoading.textContent = "لا توجد مقررات متاحة لهذا التخصص.";
+            return;
+          }
+
+          coursesLoading.textContent = "";
+
+          loadedCourses.forEach((course) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "mu-course-item";
+
+            const courseName = course.course_name || "مقرر";
+            const courseCode = course.course_code || "";
+            const priceUsd = Number(course.price_usd || 0);
+            const priceSar = Number(course.price_sar || 0);
+
+            wrapper.innerHTML = `
+              <label>
+                <input type="checkbox"
+                       class="mu-course-checkbox"
+                       data-course-name="${escapeHtml(courseName)}"
+                       data-course-code="${escapeHtml(courseCode)}"
+                       data-price-usd="${priceUsd}"
+                       data-price-sar="${priceSar}">
+                <span>
+                  <strong>${courseName}</strong>
+                  <small>${courseCode} — ${priceUsd} دولار / ${priceSar} ريال</small>
+                </span>
+              </label>
+            `;
+
+            coursesContainer.appendChild(wrapper);
+          });
+
+          bindCourseEvents();
+        } catch (error) {
+          coursesLoading.textContent = "تعذر تحميل المقررات.";
+          console.error("Error loading courses:", error);
+        }
+      }
+
+      function bindCourseEvents() {
+        const checkboxes = document.querySelectorAll(".mu-course-checkbox");
+        checkboxes.forEach(chk => {
+          chk.addEventListener("change", updateSummary);
+        });
+      }
+
+      function getSelectedCourses() {
+        const checked = document.querySelectorAll(".mu-course-checkbox:checked");
+        return Array.from(checked).map(chk => ({
+          course_name: chk.dataset.courseName || "",
+          course_code: chk.dataset.courseCode || "",
+          price_usd: Number(chk.dataset.priceUsd || 0),
+          price_sar: Number(chk.dataset.priceSar || 0)
+        }));
+      }
+
+      function updateSummary() {
+        const checkedCourses = getSelectedCourses();
+        const count = checkedCourses.length;
+        const totalUsd = checkedCourses.reduce((s, c) => s + Number(c.price_usd || 0), 0);
+        const totalSar = checkedCourses.reduce((s, c) => s + Number(c.price_sar || 0), 0);
+
+        countEl.textContent = count;
+        totalUsdEl.textContent = totalUsd.toFixed(2).replace(/\.00$/, "");
+        totalSarEl.textContent = totalSar.toFixed(2).replace(/\.00$/, "");
+        courseCountInput.value = count;
+        totalSarInput.value = totalSar.toFixed(2).replace(/\.00$/, "");
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function showError(message) {
+        errorBox.style.display = "block";
+        errorBox.textContent = message;
+        successBox.style.display = "none";
+      }
+
+      function showSuccess(message) {
+        successBox.style.display = "block";
+        successBox.textContent = message;
+        errorBox.style.display = "none";
+        errorBox.textContent = "";
+      }
+
+      function hideMessages() {
+        errorBox.style.display = "none";
+        successBox.style.display = "none";
+        errorBox.textContent = "";
+        successBox.textContent = "";
+      }
+
+      function setSubmitting(isSubmitting) {
+        submitBtn.disabled = isSubmitting;
+        submitBtn.textContent = isSubmitting ? "جاري إرسال الطلب..." : "إرسال الطلب";
+      }
+
+      specializationSelect.addEventListener("change", function () {
+        loadCourses(this.value);
+      });
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        hideMessages();
+
+        const checkedCourses = getSelectedCourses();
+        const fullName = document.getElementById("mu-full-name").value.trim();
+        const studentId = document.getElementById("mu-student-id").value.trim();
+        const phone = document.getElementById("mu-phone").value.trim();
+        const email = document.getElementById("mu-email").value.trim();
+        const notes = document.getElementById("mu-notes").value.trim();
+        const receiptInput = document.getElementById("mu-receipt");
+
+        const semesterCode = semesterSelect.value;
+        const semesterLabel = semesterSelect.options[semesterSelect.selectedIndex]?.textContent?.trim() || "";
+
+        const specializationCode = specializationSelect.value;
+        const specializationLabel = specializationSelect.options[specializationSelect.selectedIndex]?.textContent?.trim() || "";
+
+        if (!fullName) return showError("يرجى إدخال الاسم الكامل.");
+        if (!studentId) return showError("يرجى إدخال الرقم الجامعي.");
+        if (!phone) return showError("يرجى إدخال رقم الهاتف.");
+        if (!email) return showError("يرجى إدخال البريد الإلكتروني.");
+        if (!semesterCode) return showError("يرجى اختيار المستوى.");
+        if (!specializationCode) return showError("يرجى اختيار التخصص.");
+        if (checkedCourses.length === 0) return showError("يرجى اختيار مقرر واحد على الأقل.");
+        if (!receiptInput.files.length) return showError("يرجى رفع إيصال السداد.");
+
+        const receiptFile = receiptInput.files[0];
+        const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
+        const maxSizeBytes = 8 * 1024 * 1024;
+
+        if (!allowedTypes.includes(receiptFile.type)) {
+          return showError("نوع الملف غير مدعوم. يُسمح فقط بـ JPG أو PNG أو PDF.");
+        }
+
+        if (receiptFile.size > maxSizeBytes) {
+          return showError("حجم الملف كبير جدًا. الحد الأقصى 8 ميجابايت.");
+        }
+
+        try {
+          setSubmitting(true);
+
+          const formData = new FormData();
+          formData.append("full_name", fullName);
+          formData.append("student_id", studentId);
+          formData.append("phone", phone);
+          formData.append("email", email);
+          formData.append("semester", semesterLabel || semesterCode);
+          formData.append("semester_code", semesterCode);
+          formData.append("specialization", specializationLabel || specializationCode);
+          formData.append("specialization_code", specializationCode);
+          formData.append("course_count", String(checkedCourses.length));
+          formData.append("total_usd", String(checkedCourses.reduce((s, c) => s + Number(c.price_usd || 0), 0)));
+          formData.append("total_sar", String(checkedCourses.reduce((s, c) => s + Number(c.price_sar || 0), 0)));
+          formData.append("selected_courses", checkedCourses.map(c => c.course_name).join(", "));
+          formData.append("selected_courses_json", JSON.stringify(checkedCourses));
+          formData.append("notes", notes);
+          formData.append("payment_receipt", receiptFile);
+
+          const response = await fetch(SUBMIT_URL, {
+            method: "POST",
+            body: formData
+          });
+
+          let result = {};
+          try {
+            result = await response.json();
+          } catch (jsonErr) {
+            throw new Error("تعذر قراءة رد الخادم.");
+          }
+
+          if (!response.ok) {
+            throw new Error(result.message || "حدث خطأ أثناء إرسال الطلب.");
+          }
+
+          if (result.success) {
+            const actionText =
+              result.action === "updated_existing"
+                ? "تم تحديث طلبك الحالي بنجاح."
+                : "تم إنشاء طلبك بنجاح.";
+
+            const ticketText = result.ticket_id ? ` رقم التذكرة: ${result.ticket_id}` : "";
+            showSuccess(`${actionText}${ticketText}${result.message ? " - " + result.message : ""}`);
+
+            form.reset();
+            coursesContainer.innerHTML = "";
+            coursesLoading.textContent = "اختر التخصص أولًا لعرض المقررات.";
+            loadedCourses = [];
+            updateSummary();
+            specializationSelect.selectedIndex = 0;
+            semesterSelect.selectedIndex = 0;
+          } else {
+            showError(result.message || "تعذر إرسال الطلب.");
+          }
+        } catch (error) {
+          console.error("Submit error:", error);
+          showError(error.message || "حدث خطأ غير متوقع أثناء إرسال الطلب.");
+        } finally {
+          setSubmitting(false);
+        }
+      });
+
+      loadSpecializations();
+    })();
+  </script>
+</body>
+</html>
