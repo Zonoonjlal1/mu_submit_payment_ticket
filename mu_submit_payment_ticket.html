@@ -195,12 +195,12 @@
       <div class="top-note">جامعة المغتربين – كلية الهندسة – مركز الرياض</div>
     </div>
 
-    <form 
-        id="mu-payment-form"
-        action="https://esi-sa.app.n8n.cloud/webhook/submit_payment_ticket"
-        method="POST"
-        enctype="multipart/form-data"
-      >
+    <form
+      id="mu-payment-form"
+      action="https://esi-sa.app.n8n.cloud/webhook/submit_payment_ticket"
+      method="POST"
+      enctype="multipart/form-data"
+    >
       <div class="mu-card">
         <h3>بيانات الطالب</h3>
         <div class="mu-grid">
@@ -466,6 +466,7 @@
         errorBox.style.display = "block";
         errorBox.textContent = message;
         successBox.style.display = "none";
+        successBox.textContent = "";
       }
 
       function showSuccess(message) {
@@ -548,14 +549,20 @@
           formData.append("selected_courses", checkedCourses.map(c => c.course_name).join(", "));
           formData.append("selected_courses_json", JSON.stringify(checkedCourses));
           formData.append("notes", notes);
+          formData.append("source", "github_pages");
           formData.append("payment_receipt", receiptFile);
 
-          
+          const response = await fetch(SUBMIT_URL, {
+            method: "POST",
+            body: formData
+          });
 
           let result = {};
           try {
             result = await response.json();
           } catch (jsonErr) {
+            const rawText = await response.text().catch(() => "");
+            console.error("Raw response text:", rawText);
             throw new Error("تعذر قراءة رد الخادم.");
           }
 
