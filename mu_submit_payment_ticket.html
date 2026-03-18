@@ -328,7 +328,7 @@
     (function () {
       const SPECIALIZATIONS_URL = "https://zonoon-automation.duckdns.org/webhook/mu-get-specializations";
       const COURSES_URL = "https://zonoon-automation.duckdns.org/webhook/mu-get-courses";
-      const SUBMIT_URL = "https://zonoon-automation.duckdns.org/webhook/mu-ticket-status";
+      const SUBMIT_URL = "https://zonoon-automation.duckdns.org/webhook/submit_payment_ticket";
 
       const form = document.getElementById("mu-payment-form");
       const specializationSelect = document.getElementById("mu-specialization");
@@ -348,7 +348,7 @@
 
       async function loadSpecializations() {
         try {
-          const response = await fetch(SPECIALIZATIONS_URL, { method: "GET" });
+          const response = await fetch(SPECIALIZATIONS_URL, { method: "POST" });
           const data = await response.json();
 
           specializationSelect.innerHTML = '<option value="">اختر التخصص</option>';
@@ -378,7 +378,7 @@
         coursesLoading.textContent = "جاري تحميل المقررات...";
 
         try {
-          const response = await fetch(COURSES_URL + "?spec=" + encodeURIComponent(specCode), { method: "GET" });
+          const response = await fetch(COURSES_URL + "?spec=" + encodeURIComponent(specCode), { method: "POST" });
           const data = await response.json();
           loadedCourses = Array.isArray(data) ? data : [];
 
