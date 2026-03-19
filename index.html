@@ -6,47 +6,140 @@
   <title>طلب سداد المعامل العملية</title>
   <style>
     * { box-sizing: border-box; }
+
+    :root{
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --border: #dbe5f1;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-2: #7c3aed;
+      --success-bg: #ecfdf5;
+      --success-border: #10b981;
+      --success-text: #065f46;
+      --error-bg: #fef2f2;
+      --error-border: #ef4444;
+      --error-text: #991b1b;
+      --warn-bg: #fff7ed;
+      --warn-border: #fdba74;
+      --warn-text: #9a3412;
+      --soft: #f8fafc;
+      --shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
     body {
       margin: 0;
-      background: #f6f7fb;
+      background:
+        radial-gradient(circle at top right, rgba(124,58,237,0.06), transparent 22%),
+        radial-gradient(circle at top left, rgba(37,99,235,0.05), transparent 20%),
+        var(--bg);
       font-family: Tahoma, Arial, sans-serif;
-      color: #1f2937;
+      color: var(--text);
     }
+
     .container {
-      max-width: 1000px;
-      margin: 32px auto;
-      padding: 0 16px;
+      max-width: 1120px;
+      margin: 34px auto;
+      padding: 0 16px 40px;
     }
-    .mu-card {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 18px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-    h1 {
-      margin: 0 0 18px;
-      font-size: 28px;
-      color: #1f2937;
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #7c3aed 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 34px 26px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
       text-align: center;
     }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 760px;
+      color: rgba(255,255,255,0.92);
+      font-size: 17px;
+      line-height: 2;
+    }
+
+    .mu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      margin: 0 0 6px;
+      font-size: 28px;
+      color: var(--text);
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
     h3 {
       margin: 0 0 14px;
       font-size: 24px;
-      color: #1f2937;
+      color: var(--text);
     }
+
     h4 {
-      margin: 0 0 12px;
-      font-size: 18px;
-      color: #374151;
+      margin: 0 0 14px;
+      font-size: 20px;
+      color: var(--text);
     }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-head .hint {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
     label {
       display: block;
       margin-bottom: 8px;
-      font-weight: 700;
-      color: #374151;
+      font-weight: 800;
+      color: #334155;
+      font-size: 15px;
     }
+
     select,
     input[type="text"],
     input[type="email"],
@@ -55,152 +148,311 @@
     input[type="file"],
     textarea {
       width: 100%;
-      padding: 12px 14px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
+      padding: 14px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      font-size: 16px;
       margin-bottom: 14px;
       background: #fff;
+      color: var(--text);
+      transition: 0.2s ease;
+      outline: none;
     }
+
+    select:focus,
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="number"]:focus,
+    input[type="file"]:focus,
+    textarea:focus {
+      border-color: #8b5cf6;
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12);
+    }
+
     textarea {
-      min-height: 110px;
+      min-height: 120px;
       resize: vertical;
     }
+
     .mu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .mu-courses {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .mu-course-item {
+      border: 1px solid #dbe3ea;
+      border-radius: 16px;
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      transition: 0.2s ease;
+    }
+
+    .mu-course-item:hover {
+      border-color: #c4b5fd;
+      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .mu-course-item label {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-weight: 600;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .mu-course-item input[type="checkbox"] {
+      margin-top: 4px;
+      transform: scale(1.18);
+      accent-color: #7c3aed;
+    }
+
+    .mu-course-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 16px;
+      color: #111827;
+    }
+
+    .mu-course-item small {
+      display: block;
+      color: var(--muted);
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .mu-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .mu-box {
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+      border: 1px solid #dbe3ea;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .mu-box .title {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .mu-box .value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+      margin-top: 10px;
+    }
+
+    .mu-note {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: var(--warn-text);
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin-top: 12px;
+      line-height: 1.9;
+      font-size: 15px;
+    }
+
+    .mu-success {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+      padding: 18px 20px;
+      border-radius: 16px;
+      margin-top: 12px;
+      display: none;
+      line-height: 2;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.08);
+    }
+
+    .mu-error {
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: var(--error-text);
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin-top: 12px;
+      display: none;
+      white-space: pre-line;
+      line-height: 1.9;
+    }
+
+    .mu-loading {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 15px;
+      padding: 12px 0;
+    }
+
+    .mu-btn {
+      appearance: none;
+      border: 0;
+      padding: 15px 22px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.2s ease;
+      text-align: center;
+    }
+
+    .mu-btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(124, 58, 237, 0.22);
+    }
+
+    .mu-btn-primary:hover {
+      opacity: 0.98;
+      transform: translateY(-1px);
+    }
+
+    .mu-btn-secondary {
+      background: #334155;
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mu-btn-secondary:hover {
+      background: #1f2937;
+    }
+
+    .mu-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .mu-muted {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: -6px;
+      margin-bottom: 14px;
+      line-height: 1.7;
+    }
+
+    .required-star { color: #dc2626; }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 22px;
+      line-height: 1.9;
+    }
+
+    .mu-success-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .mu-success-row {
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .actions-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
     }
-    .mu-courses {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    .mu-course-item {
-      border: 1px solid #dbe3ea;
-      border-radius: 12px;
-      padding: 12px;
-      background: #fafafa;
-    }
-    .mu-course-item label {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-weight: 500;
-      margin: 0;
-      cursor: pointer;
-    }
-    .mu-course-item small {
-      display: block;
-      color: #6b7280;
-      margin-top: 6px;
-      font-size: 13px;
-    }
-    .mu-summary {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .mu-box {
-      background: #f8fafc;
-      border: 1px solid #dbe3ea;
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-    }
-    .mu-box .value {
-      font-size: 24px;
-      font-weight: 700;
-      color: #111827;
-      margin-top: 6px;
-    }
-    .mu-note {
-      background: #fff7ed;
-      border: 1px solid #fdba74;
-      color: #9a3412;
+
+    .inline-status {
       padding: 12px 14px;
-      border-radius: 10px;
-      margin-top: 12px;
-    }
-    .mu-success {
-      background: #ecfdf5;
-      border: 1px solid #10b981;
-      color: #065f46;
-      padding: 16px 18px;
-      border-radius: 10px;
-      margin-top: 12px;
-      display: none;
-      line-height: 1.9;
-    }
-    .mu-error {
-      background: #fef2f2;
-      border: 1px solid #ef4444;
-      color: #991b1b;
-      padding: 12px 14px;
-      border-radius: 10px;
-      margin-top: 12px;
-      display: none;
-      white-space: pre-line;
-    }
-    .mu-loading {
-      color: #6b7280;
-      margin-top: 8px;
-    }
-    .mu-btn {
-      background: #7c3aed;
-      color: #fff;
-      border: 0;
-      padding: 14px 22px;
       border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
+      background: var(--soft);
+      border: 1px solid #e2e8f0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
     }
-    .mu-btn:hover { opacity: 0.95; }
-    .mu-btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-    .mu-muted {
-      color: #6b7280;
-      font-size: 13px;
-      margin-top: -8px;
-      margin-bottom: 14px;
-    }
-    .required-star { color: #dc2626; }
-    .top-note {
-      text-align: center;
-      margin-bottom: 18px;
-      color: #4b5563;
-    }
-    .footer-note {
-      text-align: center;
-      color: #6b7280;
-      font-size: 13px;
-      margin-top: 20px;
-    }
-    .mu-success-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .mu-success-row {
-      margin-bottom: 8px;
-    }
-    @media (max-width: 768px) {
-      .mu-grid, .mu-courses, .mu-summary {
+
+    @media (max-width: 900px) {
+      .mu-grid,
+      .mu-courses,
+      .mu-summary,
+      .actions-grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        margin: 18px auto;
+        padding: 0 10px 28px;
+      }
+
+      .hero {
+        padding: 26px 16px;
+        border-radius: 18px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .mu-card {
+        padding: 18px 14px;
+        border-radius: 16px;
+      }
+
+      h3 { font-size: 21px; }
+      h4 { font-size: 18px; }
+
+      .mu-box .value {
+        font-size: 24px;
+      }
+
+      .mu-success-title {
+        font-size: 20px;
+      }
+
+      .mu-success-row {
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="mu-card">
-      <h1>طلب سداد المعامل العملية</h1>
-      <div class="top-note">جامعة المغتربين – كلية الهندسة – مركز الرياض</div>
+    <div class="hero">
+      <div class="hero-badge">سداد المعامل العملية</div>
+      <h1>طلب سداد رسوم المعامل العملية</h1>
+      <p>
+        جامعة المغتربين – كلية الهندسة – مركز الرياض
+        <br>
+        يرجى تعبئة البيانات بدقة، ثم اختيار التخصص والمقررات ورفع إيصال السداد لإرسال الطلب ومراجعته.
+      </p>
     </div>
 
     <form
@@ -208,9 +460,14 @@
       action="https://zonoon-automation.duckdns.org/webhook/submit_payment_ticket"
       method="POST"
       enctype="multipart/form-data"
+      novalidate
     >
       <div class="mu-card">
-        <h3>بيانات الطالب</h3>
+        <div class="section-head">
+          <h3 style="margin:0;">بيانات الطالب</h3>
+          <div class="hint">أدخل البيانات كما هي في السجل الجامعي</div>
+        </div>
+
         <div class="mu-grid">
           <div>
             <label for="mu-full-name">الاسم الكامل <span class="required-star">*</span></label>
@@ -263,24 +520,32 @@
       </div>
 
       <div class="mu-card">
-        <h4>المعامل / المقررات المتاحة</h4>
-        <div id="mu-courses-loading" class="mu-loading">اختر التخصص أولًا لعرض المقررات.</div>
+        <div class="section-head">
+          <h4 style="margin:0;">المعامل / المقررات المتاحة</h4>
+          <div class="hint">تُعرض حسب التخصص الذي تختاره</div>
+        </div>
+
+        <div id="mu-courses-loading" class="inline-status">اختر التخصص أولًا لعرض المقررات.</div>
         <div id="mu-courses" class="mu-courses"></div>
       </div>
 
       <div class="mu-card">
-        <h4>ملخص الرسوم المطلوبة</h4>
+        <div class="section-head">
+          <h4 style="margin:0;">ملخص الرسوم المطلوبة</h4>
+          <div class="hint">يتم التحديث تلقائيًا عند اختيار المقررات</div>
+        </div>
+
         <div class="mu-summary">
           <div class="mu-box">
-            <div>عدد المقررات المختارة</div>
+            <div class="title">عدد المقررات المختارة</div>
             <div class="value" id="mu-count">0</div>
           </div>
           <div class="mu-box">
-            <div>الإجمالي بالدولار</div>
+            <div class="title">الإجمالي بالدولار</div>
             <div class="value" id="mu-total-usd">0</div>
           </div>
           <div class="mu-box">
-            <div>الإجمالي بالريال</div>
+            <div class="title">الإجمالي بالريال</div>
             <div class="value" id="mu-total-sar">0</div>
           </div>
         </div>
@@ -298,29 +563,34 @@
       </div>
 
       <div class="mu-card">
-        <h4>إثبات السداد</h4>
+        <div class="section-head">
+          <h4 style="margin:0;">إثبات السداد</h4>
+          <div class="hint">الملفات المسموحة: JPG, PNG, PDF</div>
+        </div>
+
         <div class="mu-grid">
           <div>
             <label for="mu-receipt">رفع إيصال السداد <span class="required-star">*</span></label>
             <input type="file" id="mu-receipt" name="payment_receipt" accept=".jpg,.jpeg,.png,.pdf" required>
-            <div class="mu-muted">الملفات المسموحة: JPG, PNG, PDF</div>
+            <div class="mu-muted">الحد الأقصى لحجم الملف: 8 ميجابايت</div>
           </div>
-        </div>
 
-        <div>
-          <label for="mu-notes">ملاحظات إضافية</label>
-          <textarea id="mu-notes" name="notes" placeholder="أي ملاحظات إضافية تخص الطلب"></textarea>
+          <div>
+            <label for="mu-notes">ملاحظات إضافية</label>
+            <textarea id="mu-notes" name="notes" placeholder="أي ملاحظات إضافية تخص الطلب"></textarea>
+          </div>
         </div>
       </div>
 
       <div class="mu-card">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <button type="submit" class="mu-btn" id="mu-submit-btn">إرسال الطلب</button>
-          <input type="hidden" name="source" value="github_pages">
-          <a href="https://esi.oeducat.org/st-lm-n-hl-ltlb" class="mu-btn" style="text-decoration:none;text-align:center;display:inline-block;background:#374151;">
+        <div class="actions-grid">
+          <button type="submit" class="mu-btn mu-btn-primary" id="mu-submit-btn">إرسال الطلب</button>
+          <a href="https://esi.oeducat.org/st-lm-n-hl-ltlb" class="mu-btn mu-btn-secondary">
             استعلام عن طلب
           </a>
         </div>
+
+        <input type="hidden" name="source" value="github_pages">
 
         <div id="mu-success-box" class="mu-success"></div>
         <div id="mu-error-box" class="mu-error"></div>
@@ -354,17 +624,110 @@
 
       let loadedCourses = [];
 
+      function escapeHtml(str) {
+        return String(str ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function showError(message) {
+        errorBox.style.display = "block";
+        errorBox.textContent = message;
+        successBox.style.display = "none";
+        successBox.innerHTML = "";
+      }
+
+      function showSuccessHtml(actionText, studentId, ticketNumber, messageText) {
+        successBox.style.display = "block";
+        successBox.innerHTML = `
+          <div class="mu-success-title">${escapeHtml(actionText)}</div>
+          <div class="mu-success-row"><b>الرقم الجامعي:</b> ${escapeHtml(studentId || "-")}</div>
+          <div class="mu-success-row"><b>رقم التذكرة:</b> ${escapeHtml(ticketNumber || "-")}</div>
+          ${messageText ? `<div class="mu-success-row">${escapeHtml(messageText)}</div>` : ""}
+          <div class="mu-success-row"><b>تنبيه:</b> الرجاء الاحتفاظ بالرقم الجامعي لأنه المعتمد في الاستعلام عن حالة الطلب لاحقًا.</div>
+        `;
+        errorBox.style.display = "none";
+        errorBox.textContent = "";
+      }
+
+      function hideMessages() {
+        errorBox.style.display = "none";
+        successBox.style.display = "none";
+        errorBox.textContent = "";
+        successBox.innerHTML = "";
+      }
+
+      function setSubmitting(isSubmitting) {
+        submitBtn.disabled = isSubmitting;
+        submitBtn.textContent = isSubmitting ? "جاري إرسال الطلب..." : "إرسال الطلب";
+      }
+
+      function getSelectedCourses() {
+        const checked = document.querySelectorAll(".mu-course-checkbox:checked");
+        return Array.from(checked).map(chk => ({
+          course_name: chk.dataset.courseName || "",
+          course_code: chk.dataset.courseCode || "",
+          price_usd: Number(chk.dataset.priceUsd || 0),
+          price_sar: Number(chk.dataset.priceSar || 0)
+        }));
+      }
+
+      function updateSummary() {
+        const checkedCourses = getSelectedCourses();
+        const count = checkedCourses.length;
+        const totalUsd = checkedCourses.reduce((s, c) => s + Number(c.price_usd || 0), 0);
+        const totalSar = checkedCourses.reduce((s, c) => s + Number(c.price_sar || 0), 0);
+
+        countEl.textContent = count;
+        totalUsdEl.textContent = totalUsd.toFixed(2).replace(/\.00$/, "");
+        totalSarEl.textContent = totalSar.toFixed(2).replace(/\.00$/, "");
+        courseCountInput.value = count;
+        totalSarInput.value = totalSar.toFixed(2).replace(/\.00$/, "");
+      }
+
+      function bindCourseEvents() {
+        const checkboxes = document.querySelectorAll(".mu-course-checkbox");
+        checkboxes.forEach(chk => {
+          chk.addEventListener("change", updateSummary);
+        });
+      }
+
       async function loadSpecializations() {
         try {
-          const response = await fetch(SPECIALIZATIONS_URL, { method: "POST" });
+          specializationSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
+
+          const response = await fetch(SPECIALIZATIONS_URL, {
+            method: "POST"
+          });
+
+          if (!response.ok) {
+            throw new Error("فشل تحميل التخصصات من الخادم.");
+          }
+
           const data = await response.json();
+          const rows = Array.isArray(data) ? data : [];
 
           specializationSelect.innerHTML = '<option value="">اختر التخصص</option>';
 
-          data.forEach(item => {
+          if (!rows.length) {
+            specializationSelect.innerHTML = '<option value="">لا توجد تخصصات متاحة</option>';
+            return;
+          }
+
+          rows.forEach(item => {
+            if (String(item.active || "").toLowerCase() !== "yes") return;
+
+            const code = item.specialization_code || item.code || "";
+            const name = item.specialization_name || item.name || code;
+
+            if (!code || !name) return;
+
             const option = document.createElement("option");
-            option.value = item.specialization_code || item.code || "";
-            option.textContent = item.specialization_name || item.name || item.specialization_code || "";
+            option.value = code;
+            option.textContent = name;
             specializationSelect.appendChild(option);
           });
         } catch (error) {
@@ -386,7 +749,14 @@
         coursesLoading.textContent = "جاري تحميل المقررات...";
 
         try {
-          const response = await fetch(COURSES_URL + "?spec=" + encodeURIComponent(specCode), { method: "POST" });
+          const response = await fetch(COURSES_URL + "?spec=" + encodeURIComponent(specCode), {
+            method: "POST"
+          });
+
+          if (!response.ok) {
+            throw new Error("فشل تحميل المقررات من الخادم.");
+          }
+
           const data = await response.json();
           loadedCourses = Array.isArray(data) ? data : [];
 
@@ -415,8 +785,8 @@
                        data-price-usd="${priceUsd}"
                        data-price-sar="${priceSar}">
                 <span>
-                  <strong>${courseName}</strong>
-                  <small>${courseCode} — ${priceUsd} دولار / ${priceSar} ريال</small>
+                  <strong>${escapeHtml(courseName)}</strong>
+                  <small>${escapeHtml(courseCode)} — ${priceUsd} دولار / ${priceSar} ريال</small>
                 </span>
               </label>
             `;
@@ -429,76 +799,6 @@
           coursesLoading.textContent = "تعذر تحميل المقررات.";
           console.error("Error loading courses:", error);
         }
-      }
-
-      function bindCourseEvents() {
-        const checkboxes = document.querySelectorAll(".mu-course-checkbox");
-        checkboxes.forEach(chk => {
-          chk.addEventListener("change", updateSummary);
-        });
-      }
-
-      function getSelectedCourses() {
-        const checked = document.querySelectorAll(".mu-course-checkbox:checked");
-        return Array.from(checked).map(chk => ({
-          course_name: chk.dataset.courseName || "",
-          course_code: chk.dataset.courseCode || "",
-          price_usd: Number(chk.dataset.priceUsd || 0),
-          price_sar: Number(chk.dataset.priceSar || 0)
-        }));
-      }
-
-      function updateSummary() {
-        const checkedCourses = getSelectedCourses();
-        const count = checkedCourses.length;
-        const totalUsd = checkedCourses.reduce((s, c) => s + Number(c.price_usd || 0), 0);
-        const totalSar = checkedCourses.reduce((s, c) => s + Number(c.price_sar || 0), 0);
-
-        countEl.textContent = count;
-        totalUsdEl.textContent = totalUsd.toFixed(2).replace(/\.00$/, "");
-        totalSarEl.textContent = totalSar.toFixed(2).replace(/\.00$/, "");
-        courseCountInput.value = count;
-        totalSarInput.value = totalSar.toFixed(2).replace(/\.00$/, "");
-      }
-
-      function escapeHtml(str) {
-        return String(str)
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
-      }
-
-      function showError(message) {
-        errorBox.style.display = "block";
-        errorBox.textContent = message;
-        successBox.style.display = "none";
-        successBox.innerHTML = "";
-      }
-
-      function showSuccessHtml(actionText, studentId, ticketNumber) {
-        successBox.style.display = "block";
-        successBox.innerHTML = `
-          <div class="mu-success-title">${actionText}</div>
-          <div class="mu-success-row"><b>الرقم الجامعي:</b> ${escapeHtml(studentId || "-")}</div>
-          <div class="mu-success-row"><b>رقم التذكرة:</b> ${escapeHtml(ticketNumber || "-")}</div>
-          <div class="mu-success-row">الرجاء الاحتفاظ بالرقم الجامعي أو رقم التذكرة للاستعلام عن حالة السداد.</div>
-        `;
-        errorBox.style.display = "none";
-        errorBox.textContent = "";
-      }
-
-      function hideMessages() {
-        errorBox.style.display = "none";
-        successBox.style.display = "none";
-        errorBox.textContent = "";
-        successBox.innerHTML = "";
-      }
-
-      function setSubmitting(isSubmitting) {
-        submitBtn.disabled = isSubmitting;
-        submitBtn.textContent = isSubmitting ? "جاري إرسال الطلب..." : "إرسال الطلب";
       }
 
       specializationSelect.addEventListener("change", function () {
@@ -547,6 +847,9 @@
         try {
           setSubmitting(true);
 
+          const totalUsd = checkedCourses.reduce((s, c) => s + Number(c.price_usd || 0), 0);
+          const totalSar = checkedCourses.reduce((s, c) => s + Number(c.price_sar || 0), 0);
+
           const formData = new FormData();
           formData.append("full_name", fullName);
           formData.append("student_id", studentId);
@@ -557,8 +860,8 @@
           formData.append("specialization", specializationLabel || specializationCode);
           formData.append("specialization_code", specializationCode);
           formData.append("course_count", String(checkedCourses.length));
-          formData.append("total_usd", String(checkedCourses.reduce((s, c) => s + Number(c.price_usd || 0), 0)));
-          formData.append("total_sar", String(checkedCourses.reduce((s, c) => s + Number(c.price_sar || 0), 0)));
+          formData.append("total_usd", String(totalUsd));
+          formData.append("total_sar", String(totalSar));
           formData.append("selected_courses", checkedCourses.map(c => c.course_name).join(", "));
           formData.append("selected_courses_json", JSON.stringify(checkedCourses));
           formData.append("notes", notes);
@@ -583,34 +886,27 @@
             throw new Error(result.message || "حدث خطأ أثناء إرسال الطلب.");
           }
 
-          if (result.success) {
-            const studentId = result.student_id || formData.get("student_id") || "";
-            const ticketRef = result.ticket_ref || "";
-            const actionText =
-              result.action === "updated_existing"
-                ? "تم تحديث طلبك الحالي بنجاح"
-                : "تم إنشاء طلبك بنجاح";
-          
-            resultBox.className = "result-box success";
-            resultBox.innerHTML = `
-              <div>${actionText}.</div>
-              <div>الرقم الجامعي: <strong>${studentId}</strong></div>
-              ${ticketRef ? `<div>رقم التذكرة: <strong>${ticketRef}</strong></div>` : ""}
-              <div>${result.message || ""}</div>
-              <div style="margin-top:8px;"><strong>تنبيه:</strong> الرجاء الاحتفاظ بالرقم الجامعي لأنه المعتمد في الاستعلام عن حالة الطلب لاحقًا.</div>
-            `;
+          if (!result.success) {
+            throw new Error(result.message || "تعذر إرسال الطلب.");
           }
 
-            form.reset();
-            coursesContainer.innerHTML = "";
-            coursesLoading.textContent = "اختر التخصص أولًا لعرض المقررات.";
-            loadedCourses = [];
-            updateSummary();
-            specializationSelect.selectedIndex = 0;
-            semesterSelect.selectedIndex = 0;
-          } else {
-            showError(result.message || "تعذر إرسال الطلب.");
-          }
+          const returnedStudentId = result.student_id || formData.get("student_id") || "";
+          const ticketRef = result.ticket_ref || "";
+          const actionText =
+            result.action === "updated_existing"
+              ? "تم تحديث طلبك الحالي بنجاح"
+              : "تم استلام طلبك بنجاح";
+
+          showSuccessHtml(actionText, returnedStudentId, ticketRef, result.message || "");
+
+          form.reset();
+          coursesContainer.innerHTML = "";
+          coursesLoading.textContent = "اختر التخصص أولًا لعرض المقررات.";
+          loadedCourses = [];
+          updateSummary();
+          specializationSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
+          await loadSpecializations();
+          semesterSelect.selectedIndex = 0;
         } catch (error) {
           console.error("Submit error:", error);
           showError(error.message || "حدث خطأ غير متوقع أثناء إرسال الطلب.");
@@ -623,4 +919,4 @@
     })();
   </script>
 </body>
-</html>
+</html>"
