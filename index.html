@@ -90,22 +90,6 @@
       box-shadow: var(--shadow);
     }
 
-    .section-title {
-      margin: 0 0 6px;
-      font-size: 28px;
-      color: var(--text);
-      text-align: center;
-      font-weight: 800;
-    }
-
-    .section-subtitle {
-      text-align: center;
-      margin: 0 0 8px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.9;
-    }
-
     h3 {
       margin: 0 0 14px;
       font-size: 24px;
@@ -292,13 +276,6 @@
       display: none;
       white-space: pre-line;
       line-height: 1.9;
-    }
-
-    .mu-loading {
-      color: var(--muted);
-      margin-top: 8px;
-      font-size: 15px;
-      padding: 12px 0;
     }
 
     .mu-btn {
@@ -700,7 +677,7 @@
           specializationSelect.innerHTML = '<option value="">جاري تحميل التخصصات...</option>';
 
           const response = await fetch(SPECIALIZATIONS_URL, {
-            method: "POST"
+            method: "GET"
           });
 
           if (!response.ok) {
@@ -750,7 +727,7 @@
 
         try {
           const response = await fetch(COURSES_URL + "?spec=" + encodeURIComponent(specCode), {
-            method: "POST"
+            method: "GET"
           });
 
           if (!response.ok) {
