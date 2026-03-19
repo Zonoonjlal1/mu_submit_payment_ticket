@@ -127,11 +127,11 @@
       background: #ecfdf5;
       border: 1px solid #10b981;
       color: #065f46;
-      padding: 12px 14px;
+      padding: 16px 18px;
       border-radius: 10px;
       margin-top: 12px;
       display: none;
-      white-space: pre-line;
+      line-height: 1.9;
     }
     .mu-error {
       background: #fef2f2;
@@ -180,6 +180,14 @@
       color: #6b7280;
       font-size: 13px;
       margin-top: 20px;
+    }
+    .mu-success-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .mu-success-row {
+      margin-bottom: 8px;
     }
     @media (max-width: 768px) {
       .mu-grid, .mu-courses, .mu-summary {
@@ -466,12 +474,17 @@
         errorBox.style.display = "block";
         errorBox.textContent = message;
         successBox.style.display = "none";
-        successBox.textContent = "";
+        successBox.innerHTML = "";
       }
 
-      function showSuccess(message) {
+      function showSuccessHtml(actionText, studentId, ticketNumber) {
         successBox.style.display = "block";
-        successBox.textContent = message;
+        successBox.innerHTML = `
+          <div class="mu-success-title">${actionText}</div>
+          <div class="mu-success-row"><b>الرقم الجامعي:</b> ${escapeHtml(studentId || "-")}</div>
+          <div class="mu-success-row"><b>رقم التذكرة:</b> ${escapeHtml(ticketNumber || "-")}</div>
+          <div class="mu-success-row">الرجاء الاحتفاظ بالرقم الجامعي أو رقم التذكرة للاستعلام عن حالة السداد.</div>
+        `;
         errorBox.style.display = "none";
         errorBox.textContent = "";
       }
@@ -480,7 +493,7 @@
         errorBox.style.display = "none";
         successBox.style.display = "none";
         errorBox.textContent = "";
-        successBox.textContent = "";
+        successBox.innerHTML = "";
       }
 
       function setSubmitting(isSubmitting) {
@@ -574,12 +587,10 @@
             const actionText =
               result.action === "updated_existing"
                 ? "تم تحديث طلبك الحالي بنجاح."
-                : "تم إنشاء طلبك بنجاح.";
+                : "تم استلام طلبك بنجاح.";
 
-            const ticketText = result.ticket_ref
-              ? ` رقم التذكرة: ${result.ticket_ref}`
-              : (result.ticket_id ? ` رقم التذكرة: ${result.ticket_id}` : "");
-            showSuccess(`${actionText}${ticketText}${result.message ? " - " + result.message : ""}`);
+            const ticketNumber = result.ticket_ref || result.ticket || result.ticket_id || "";
+            showSuccessHtml(actionText, studentId, ticketNumber);
 
             form.reset();
             coursesContainer.innerHTML = "";
