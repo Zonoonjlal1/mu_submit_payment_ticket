@@ -584,13 +584,22 @@
           }
 
           if (result.success) {
+            const studentId = result.student_id || formData.get("student_id") || "";
+            const ticketRef = result.ticket_ref || "";
             const actionText =
               result.action === "updated_existing"
-                ? "تم تحديث طلبك الحالي بنجاح."
-                : "تم استلام طلبك بنجاح.";
-
-            const ticketNumber = result.ticket_ref || result.ticket || result.ticket_id || "";
-            showSuccessHtml(actionText, studentId, ticketNumber);
+                ? "تم تحديث طلبك الحالي بنجاح"
+                : "تم إنشاء طلبك بنجاح";
+          
+            resultBox.className = "result-box success";
+            resultBox.innerHTML = `
+              <div>${actionText}.</div>
+              <div>الرقم الجامعي: <strong>${studentId}</strong></div>
+              ${ticketRef ? `<div>رقم التذكرة: <strong>${ticketRef}</strong></div>` : ""}
+              <div>${result.message || ""}</div>
+              <div style="margin-top:8px;"><strong>تنبيه:</strong> الرجاء الاحتفاظ بالرقم الجامعي لأنه المعتمد في الاستعلام عن حالة الطلب لاحقًا.</div>
+            `;
+          }
 
             form.reset();
             coursesContainer.innerHTML = "";
